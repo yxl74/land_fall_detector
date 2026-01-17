@@ -90,6 +90,18 @@ def build_struct_features(X_struct: np.ndarray, names: List[str]) -> np.ndarray:
         "opcode_list1_bytes",
         "opcode_list2_bytes",
         "opcode_list3_bytes",
+        "max_width",
+        "max_height",
+        "total_pixels",
+        "file_size",
+        "bytes_per_pixel_milli",
+        "pixels_per_mb",
+        "opcode_list_bytes_total",
+        "opcode_list_bytes_max",
+        "opcode_list_present_count",
+        "opcode_bytes_ratio_permille",
+        "opcode_bytes_per_opcode_milli",
+        "unknown_opcode_ratio_permille",
     }
     X = X_struct.astype(np.float32).copy()
     name_to_idx = {n: i for i, n in enumerate(names)}
@@ -295,6 +307,7 @@ def main() -> int:
         "test_metrics": test_metrics,
         "val_per_class": per_class_stats(labels[val_idx], scores[val_idx], thr),
         "test_per_class": per_class_stats(labels[test_idx], scores[test_idx], thr),
+        "all_per_class": per_class_stats(labels, scores, thr),
     }
 
     os.makedirs(os.path.dirname(args.output_json), exist_ok=True)
